@@ -1,0 +1,39 @@
+#!/bin/bash
+
+# This bash script is used to control volume in i3wm
+volchange=$1
+operator=${volchange:0:1}
+change=${volchange:1:(${#volchange}-2)}
+linestart=`pactl list | grep -n "Sink #1" | cut -f1 -d":"`
+let "linestart += 9"
+sinkvol=`pactl list | sed -n ${linestart}p`
+
+# assume left and right volume levels are in sync for now
+volleft=${sinkvol#*/}
+volleft=${volleft%%%*}
+
+addresult=${volleft}
+add=${change}
+let "addresult += ${add}"
+if [ ${addresult} -gt 100 ]
+then
+    let "add = 100-${volleft}"
+fi
+
+subresult=${volleft}
+sub=${change}
+let "subresult = ${subresult}-${sub}"
+if [ ${subresult} -lt 0 ]
+then
+    let "sub = ${volleft}"
+fi
+
+if [ ${operator} = "+" ]
+then
+    `pactl set-sink-volume @DEFAULT_SINK@ +${add}%`
+elif [ ${operator} = "-" ]
+then
+    `pactl set-sink-volume @DEFAULT_SINK@ -${sub}%`
+else
+    echo "Couldn't determine operator"
+fi
