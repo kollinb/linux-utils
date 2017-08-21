@@ -56,11 +56,11 @@ source vars
 echo "Running certificate build script"
 sh ./build-ca
 echo "Running key server build script"
-sh ./build-key-server PokeBotVPN
-echo "Running Diffie Hellman build script"
+sh ./build-key-server PersonalVPN
+echo "Running Diffie-Hellman build script"
 ./build-dh
 cd keys
-cp PokeBotVPN.crt PokeBotVPN.key ca.crt dh2048.pem /etc/openvpn
+cp PersonalVPN.crt PersonalVPN.key ca.crt dh2048.pem /etc/openvpn
 
 
 #Client key generation
