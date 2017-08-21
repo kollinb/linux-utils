@@ -64,7 +64,7 @@ export KEY_EXPIRE=3650
 export KEY_COUNTRY="US"
 export KEY_PROVINCE="NY"
 export KEY_CITY="NewYork"
-export KEY_ORG="PokeBotVPN"
+export KEY_ORG="Personal"
 export KEY_EMAIL="me@email.com"
 export KEY_OU="vpndev"
 
